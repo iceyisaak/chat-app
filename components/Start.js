@@ -25,12 +25,12 @@ export default class Start extends Component {
     return (
 
       <View style={styles.container}>
-        <ImageBackground source={image}>
 
-
-          <Text>
-            Please Enter Your Name:
+        <Text style={styles.Text}>
+          Chat App
         </Text>
+
+        <View style={styles.InputBackground}>
 
           <TextInput
             style={styles.TextInput}
@@ -49,7 +49,8 @@ export default class Start extends Component {
             }}
           />
 
-        </ImageBackground>
+        </View>
+
       </View>
 
     );
@@ -66,19 +67,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
+  InputBackground: {
+    backgroundColor: '#dadada',
+    // width: 6
+    // height: 40,
+    // padding: 20
+  },
+
+  Text: {
+    margin: 'auto',
+    justifyContent: 'center'
+  },
+
   TextInput: {
     height: 40,
-    width: 300,
-    padding: 12,
     borderColor: 'gray',
     borderWidth: 1,
+    padding: 8,
     margin: 20
   },
 
   Button: {
     width: 1,
+    padding: 20,
     margin: 30,
-    backgroundColor: '#1E6738'
+    backgroundColor: '#99ffcc'
   }
 
 });
