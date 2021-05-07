@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {
   View,
-  Button,
   ImageBackground,
   Text,
   TextInput,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity
 } from 'react-native';
 
 
@@ -41,13 +41,16 @@ export default class Start extends Component {
             placeholder='Your Name'
           />
 
-          <Button
+          <TouchableOpacity
             style={styles.Button}
-            title='Chat Now'
             onPress={() => {
               this.props.navigation.navigate('Chat');
             }}
-          />
+          >
+            <Text style={styles.ButtonText}>
+              Chat Now
+            </Text>
+          </TouchableOpacity>
 
         </View>
 
@@ -84,14 +87,20 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     padding: 8,
-    margin: 20
+    margin: 30
   },
 
   Button: {
-    width: 1,
     padding: 20,
     margin: 30,
-    backgroundColor: '#99ffcc'
+    backgroundColor: '#757083',
+  },
+
+  ButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center'
   }
 
 });
