@@ -5,9 +5,11 @@ import {
   Text,
   TextInput,
   StyleSheet,
+  KeyboardAvoidingView,
   TouchableOpacity
 } from 'react-native';
 
+const image = require('../assets/backgroundImage.png');
 
 export default class Start extends Component {
 
@@ -15,7 +17,9 @@ export default class Start extends Component {
     super(props);
 
     this.state = {
-      text: ''
+      name: '',
+      color: '',
+      selected: 'swatch3'
     };
 
   }
@@ -24,83 +28,305 @@ export default class Start extends Component {
 
     return (
 
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior='height'
+      >
 
-        <Text style={styles.Text}>
-          Chat App
-        </Text>
+        <ImageBackground
+          source={image}
+          style={styles.ImageBackground}
+        >
 
-        <View style={styles.InputBackground}>
 
-          <TextInput
-            style={styles.TextInput}
-            onChange={
-              (text) => this.setState({ text })
-            }
-            value={this.state.text}
-            placeholder='Your Name'
-          />
+          <View style={styles.AppHeadingView}>
 
-          <TouchableOpacity
-            style={styles.Button}
-            onPress={() => {
-              this.props.navigation.navigate('Chat');
-            }}
-          >
-            <Text style={styles.ButtonText}>
-              Chat Now
+            <Text style={styles.AppName}>
+              Chat App
             </Text>
-          </TouchableOpacity>
 
-        </View>
+            <Text style={styles.AppSlogan}>
+              Bringing the World Closer
+            </Text>
 
-      </View>
+          </View>
 
+          <View style={styles.InputBackground}>
+
+            <TextInput
+              style={styles.TextInput}
+              onChange={
+                (name) => this.setState({
+                  name
+                })
+              }
+              value={this.state.name}
+              placeholder='Your Name'
+            />
+
+            <View style={styles.colorSwatchSection}>
+
+              <Text style={styles.colorSwatchText}>
+                Choose Background Colour:
+              </Text>
+
+              <View style={styles.colorSwatchContainer}>
+
+                <TouchableOpacity
+                  style={
+                    this.state.selected === 'swatch1'
+                      ? styles.colorSwatch1__selected
+                      : styles.colorSwatch1
+                  }
+                  onPress={
+                    (color) => this.setState({
+                      color,
+                      selected: 'swatch1'
+                    })
+
+                  }
+                ></TouchableOpacity>
+
+                <TouchableOpacity
+                  style={
+                    this.state.selected === 'swatch2'
+                      ? styles.colorSwatch2__selected
+                      : styles.colorSwatch2
+                  }
+                  onPress={
+                    (color) => this.setState({
+                      color,
+                      selected: 'swatch2'
+                    })
+                  }
+                ></TouchableOpacity>
+                <TouchableOpacity
+                  style={
+                    this.state.selected === 'swatch3'
+                      ? styles.colorSwatch3__selected
+                      : styles.colorSwatch3
+                  }
+                  onPress={
+                    (color) => this.setState({
+                      color,
+                      selected: 'swatch3'
+                    })
+                  }
+                >
+
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={
+                    this.state.selected === 'swatch4'
+                      ? styles.colorSwatch4__selected
+                      : styles.colorSwatch4
+                  }
+                  onPress={
+                    (color) => this.setState({
+                      color,
+                      selected: 'swatch4'
+                    })
+                  }
+                ></TouchableOpacity>
+              </View>
+
+            </View>
+
+
+            <TouchableOpacity
+              style={styles.Button}
+              onPress={() => {
+                this.props.navigation.navigate(
+                  'Chat',
+                  {
+                    name: this.state.name,
+                    color: this.state.color
+                  }
+                );
+              }}
+            >
+
+              <Text style={styles.ButtonText}>
+                Chat Now
+              </Text>
+
+            </TouchableOpacity>
+
+
+          </View>
+
+        </ImageBackground>
+
+      </KeyboardAvoidingView >
     );
 
   }
 }
 
-const image = { uri: '../assets/Background Image.png' };
+const selectedStateColor = '#AAFF00';
 
 const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'space-between'
+  },
+
+  ImageBackground: {
+    flex: 1,
+    height: '100%',
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
 
   InputBackground: {
-    backgroundColor: '#dadada',
-    // width: 6
-    // height: 40,
-    // padding: 20
+    backgroundColor: '#DADADA',
+    width: '88 %',
+    height: 320,
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
 
-  Text: {
-    margin: 'auto',
-    justifyContent: 'center'
+  AppHeadingView: {
+    top: 60,
+    alignSelf: 'center',
+    marginBottom: '75%',
+  },
+
+  AppName: {
+    alignSelf: 'center',
+    justifyContent: 'flex-start',
+    fontSize: 45,
+    fontWeight: '600',
+    color: '#FFF'
+  },
+
+  AppSlogan: {
+    fontSize: 10,
+    marginLeft: 6,
+    color: '#FFF'
   },
 
   TextInput: {
-    height: 40,
+    height: '20%',
+    width: '88%',
+    alignSelf: 'center',
     borderColor: 'gray',
     borderWidth: 1,
     padding: 8,
-    margin: 30
   },
 
   Button: {
-    padding: 20,
-    margin: 30,
+    alignSelf: 'center',
+    justifyContent: 'center',
     backgroundColor: '#757083',
+    width: '88%',
+    height: '20%'
   },
 
   ButtonText: {
-    color: '#fff',
+    color: '#FFF',
     fontSize: 16,
     fontWeight: '600',
-    textAlign: 'center'
-  }
+    alignSelf: 'center'
+  },
+
+  colorSwatchSection: {
+    marginTop: 30,
+    marginBottom: 30
+  },
+
+  colorSwatchText: {
+    marginLeft: 23,
+    fontSize: 16,
+    fontWeight: '300',
+    color: '#757083',
+    marginBottom: 10
+  },
+
+  colorSwatchContainer: {
+    flexDirection: 'row'
+  },
+
+  colorSwatch1: {
+    backgroundColor: '#090C08',
+    marginLeft: 25,
+    width: 50,
+    height: 50,
+    borderRadius: 25
+  },
+  colorSwatch1__selected: {
+    backgroundColor: '#090C08',
+    marginLeft: 25,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    padding: 10,
+    borderColor: selectedStateColor,
+    borderWidth: 3,
+    borderStyle: 'solid',
+  },
+
+  colorSwatch2: {
+    backgroundColor: '#474056',
+    marginLeft: 25,
+    width: 50,
+    height: 50,
+    borderRadius: 25
+  },
+
+  colorSwatch2__selected: {
+    backgroundColor: '#474056',
+    marginLeft: 25,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    padding: 10,
+    borderColor: selectedStateColor,
+    borderWidth: 3,
+    borderStyle: 'solid',
+  },
+
+  colorSwatch3: {
+    backgroundColor: '#8A95A5',
+    marginLeft: 25,
+    width: 50,
+    height: 50,
+    borderRadius: 25
+  },
+
+  colorSwatch3__selected: {
+    backgroundColor: '#8A95A5',
+    marginLeft: 25,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    padding: 10,
+    borderColor: selectedStateColor,
+    borderWidth: 3,
+    borderStyle: 'solid',
+  },
+
+  colorSwatch4: {
+    backgroundColor: '#B9C6AE',
+    marginLeft: 25,
+    width: 50,
+    height: 50,
+    borderRadius: 25
+  },
+
+  colorSwatch4__selected: {
+    backgroundColor: '#B9C6AE',
+    marginLeft: 25,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    padding: 10,
+    borderColor: selectedStateColor,
+    borderWidth: 3,
+    borderStyle: 'solid',
+  },
+
+
 
 });
