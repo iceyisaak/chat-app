@@ -5,11 +5,12 @@ import {
   StyleSheet
 } from 'react-native';
 
+
 export default class Chat extends Component {
 
   render() {
 
-    let { name, color } = this.props.route.params;
+    const { name, color } = this.props.route.params;
 
     return (
 
