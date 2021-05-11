@@ -100,6 +100,7 @@ export default class Start extends Component {
                     })
                   }
                 ></TouchableOpacity>
+
                 <TouchableOpacity
                   style={
                     this.state.selected === 'swatch3'
@@ -113,8 +114,8 @@ export default class Start extends Component {
                     })
                   }
                 >
-
                 </TouchableOpacity>
+
                 <TouchableOpacity
                   style={
                     this.state.selected === 'swatch4'
@@ -128,6 +129,7 @@ export default class Start extends Component {
                     })
                   }
                 ></TouchableOpacity>
+
               </View>
 
             </View>
@@ -163,7 +165,7 @@ export default class Start extends Component {
   }
 }
 
-const selectedStateColor = '#AAFF00';
+const selectedStateColor = '#1D8E36';
 
 const styles = StyleSheet.create({
 

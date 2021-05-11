@@ -9,11 +9,15 @@ export default class Chat extends Component {
 
   render() {
 
+    let name = this.props.route.params;
+    // const color = this.route.params.color;
+
+
     return (
 
       <View style={styles.container}>
         <Text>
-          Chat Screen
+          Hello {name}
         </Text>
       </View>
 
@@ -27,7 +31,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    // backgroundColor: this.route.params.color
   }
 
 });
