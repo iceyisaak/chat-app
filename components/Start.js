@@ -55,7 +55,7 @@ export default class Start extends Component {
 
             <TextInput
               style={styles.TextInput}
-              onChange={
+              onChangeText={
                 (name) => this.setState({
                   name
                 })

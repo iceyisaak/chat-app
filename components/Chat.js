@@ -9,9 +9,7 @@ export default class Chat extends Component {
 
   render() {
 
-    let name = this.props.route.params;
-    // const color = this.route.params.color;
-
+    let { name, color } = this.props.route.params;
 
     return (
 
@@ -32,7 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: this.route.params.color
+    backgroundColor: `${this.props.route.params.color}`
   }
 
 });
