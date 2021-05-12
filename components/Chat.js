@@ -14,7 +14,12 @@ export default class Chat extends Component {
 
     return (
 
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          { backgroundColor: color }
+        ]}
+      >
         <Text>
           Hello {name}
         </Text>
@@ -31,8 +36,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: color
+    alignItems: 'center'
   }
 
 });

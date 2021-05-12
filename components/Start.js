@@ -18,7 +18,7 @@ export default class Start extends Component {
 
     this.state = {
       name: '',
-      color: '',
+      color: '#8A95A5',
       selected: 'swatch3'
     };
 
