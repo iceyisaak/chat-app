@@ -79,8 +79,8 @@ export default class Start extends Component {
                       : styles.colorSwatch1
                   }
                   onPress={
-                    (color) => this.setState({
-                      color,
+                    () => this.setState({
+                      color: '#090C08',
                       selected: 'swatch1'
                     })
 
@@ -94,8 +94,8 @@ export default class Start extends Component {
                       : styles.colorSwatch2
                   }
                   onPress={
-                    (color) => this.setState({
-                      color,
+                    () => this.setState({
+                      color: '#474056',
                       selected: 'swatch2'
                     })
                   }
@@ -108,8 +108,8 @@ export default class Start extends Component {
                       : styles.colorSwatch3
                   }
                   onPress={
-                    (color) => this.setState({
-                      color,
+                    () => this.setState({
+                      color: '#8A95A5',
                       selected: 'swatch3'
                     })
                   }
@@ -123,8 +123,8 @@ export default class Start extends Component {
                       : styles.colorSwatch4
                   }
                   onPress={
-                    (color) => this.setState({
-                      color,
+                    () => this.setState({
+                      color: '#B9C6AE',
                       selected: 'swatch4'
                     })
                   }
@@ -138,6 +138,7 @@ export default class Start extends Component {
             <TouchableOpacity
               style={styles.Button}
               onPress={() => {
+                // console.log('StartJS', this.props);
                 this.props.navigation.navigate(
                   'Chat',
                   {

@@ -10,14 +10,19 @@ export default class Chat extends Component {
 
   render() {
 
-    const { name, color } = this.props.route.params;
+    const {
+      name,
+      color
+    } = this.props.route.params;
 
     return (
 
       <View
         style={[
           styles.container,
-          { backgroundColor: color }
+          {
+            backgroundColor: color
+          }
         ]}
       >
         <Text>
