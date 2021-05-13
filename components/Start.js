@@ -85,6 +85,10 @@ export default class Start extends Component {
                     })
 
                   }
+                  accessible={true}
+                  accessibilityLabel='swatch1'
+                  accessbibilityHint='Black background'
+                  accessibilityRole='button'
                 ></TouchableOpacity>
 
                 <TouchableOpacity
@@ -99,6 +103,10 @@ export default class Start extends Component {
                       selected: 'swatch2'
                     })
                   }
+                  accessible={true}
+                  accessibilityLabel='swatch2'
+                  accessibilityHint='Dark Purple background'
+                  accessibilityRole='button'
                 ></TouchableOpacity>
 
                 <TouchableOpacity
@@ -113,6 +121,10 @@ export default class Start extends Component {
                       selected: 'swatch3'
                     })
                   }
+                  accessible={true}
+                  accessibilityLabel='swatch3'
+                  accessibilityHint='Grey background'
+                  accessibilityRole='button'
                 >
                 </TouchableOpacity>
 
@@ -128,6 +140,10 @@ export default class Start extends Component {
                       selected: 'swatch4'
                     })
                   }
+                  accessibility={true}
+                  accessibilityLabel='swatch4'
+                  accessibilityHint='Light Grey background'
+                  accessibilityRole='button'
                 ></TouchableOpacity>
 
               </View>
@@ -147,6 +163,10 @@ export default class Start extends Component {
                   }
                 );
               }}
+              accessibility={true}
+              accessibilityLabel='Chat Button'
+              accessibilityHint='Chat Now'
+              accessibilityRole='button'
             >
 
               <Text style={styles.ButtonText}>
