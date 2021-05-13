@@ -65,6 +65,17 @@ export default class Chat extends Component {
         )
       })
     );
+
+    // Bring in the prop 'name'
+    const name = this.props.route.params.name;
+
+    // Bring props to setOptions
+    this.props.navigation.setOptions({
+
+      // set name as title
+      title: name
+    });
+
   };
 
 
@@ -86,11 +97,7 @@ export default class Chat extends Component {
 
   render() {
 
-    let name = this.props.route.params.name;
-    this.props.navigation.setOptions({
-      title: name
-    });
-
+    // Bring in the color
     const {
       color
     } = this.props.route.params;
@@ -131,12 +138,11 @@ export default class Chat extends Component {
 }
 
 
+// Styling the Component 
 const styles = StyleSheet.create({
 
   container: {
-    flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center'
+    flex: 1
   }
 
 });
