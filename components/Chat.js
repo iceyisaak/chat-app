@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { db, auth } from '../firebase';
 import {
   View,
   StyleSheet,
@@ -8,39 +9,98 @@ import {
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
 
+
 export default class Chat extends Component {
 
   constructor() {
     super();
 
     this.state = {
-      messages: []
+      messages: [],
+      uid: ''
     };
 
   }
 
-  componentDidMount() {
+  onMessageUpdate = (querySnapshot) => {
+    const messages = [];
+
+    querySnapshot.forEach(
+      (doc) => {
+
+        let data = doc.data();
+
+        messages.push({
+          _id: data._id,
+          createdAt: data.createdAt.toDate(),
+          text: data.text,
+          user: data.user,
+          image: data.image || '',
+          location: data.location || null
+        });
+
+      }
+    );
+
     this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: 'Hi Dev',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'Sam Green',
-            avatar: 'https://placeimg.com/140/140/any'
-          }
-        },
-        {
-          _id: 2,
-          text: 'This is a system message',
-          createdAt: new Date(),
-          system: true
-        }
-      ]
+      messages
     });
+
+  };
+
+  componentDidMount() {
+
+    this.referenceChatMessages = db.collection('messages');
+    this.unsubscribe = this.referenceChatMessages.onSnapshot(this.onMessageUpdate);
+
+    this.authUnsubscribe = auth.onAuthStateChanged(
+
+      async (user) => {
+        if (!user) {
+          await auth.signInAnonymously();
+        }
+
+        this.setState({
+          messages: [
+            {
+              _id: 1,
+              text: 'Hi Dev',
+              createdAt: new Date(),
+              user: {
+                _id: 2,
+                name: 'Sam Green',
+                avatar: 'https://placeimg.com/140/140/any'
+              }
+            },
+            {
+              _id: 2,
+              text: 'This is a system message',
+              createdAt: new Date(),
+              system: true
+            }
+          ]
+        });
+
+        this.unsubscribe = this.referenceChatMessages
+          .orderBy('createdAt', 'desc')
+          .onSnapshot(this.onMessageUpdate);
+
+        this.referenceChatMessagesUser = db.collection('messages').where(
+          'uid',
+          '==',
+          this.state.uid
+        );
+      }
+    );
+
+
   }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+    this.authUnsubscribe();
+  }
+
 
   // When sending a message
   onSend(
