@@ -22,60 +22,69 @@ export default class Chat extends Component {
 
   }
 
+
   onMessageUpdate = (querySnapshot) => {
     const messages = [];
+
+    console.log('onMessageUpdate()');
 
     querySnapshot.forEach(
       (doc) => {
 
         let data = doc.data();
 
-        // if (data.length === null) {
-        //   messages.push({
-        //     _id: 1,
-        //     text: 'This is the beginning of the Chat',
-        //     createdAt: new Date(),
-        //     system: true
-        //   });
-        // }
+        console.log('data: ', data);
+        // console.log('messages: ', messages);
+        if (Object.keys(data).length === 0) {
+
+          console.log('if1: ');
+
+          messages.push({
+            _id: 1,
+            text: 'This is the beginning of the Chat',
+            createdAt: new Date(),
+            user: this.state.uid,
+            system: true
+          });
+
+          console.log('messages: ', messages);
 
 
-        messages.push({
-          _id: data._id,
-          createdAt: data.createdAt.toDate(),
-          text: data.text,
-          user: data.user,
-          image: data.image || '',
-          location: data.location || null
-        });
+        } else {
+
+          console.log('else1: ');
+
+          messages.push({
+            _id: data._id,
+            createdAt: data.createdAt.toDate(),
+            text: data.text,
+            user: data.user,
+            image: data.image || '',
+            location: data.location || null
+          });
+
+        }
 
       }
     );
 
-
     this.setState({
       messages
     });
-    // console.log('messages: ', messages);
-    if (this.state.messages = []) {
-      this.setState({
-        messages: [
-          {
-            _id: 1,
-            text: 'This is the beginning of the Chat',
-            createdAt: new Date(),
-            system: true
-          }
-        ]
-      });
-    }
+    console.log('messages-2: ', messages);
 
   };
 
   componentDidMount() {
 
     this.referenceChatMessages = db.collection('messages');
-    this.unsubscribe = this.referenceChatMessages.onSnapshot(this.onMessageUpdate);
+
+
+    console.log('before unsubscribe-1', this.state.messages);
+    this.unsubscribe = this.referenceChatMessages
+      // .orderBy('createdAt', 'desc')
+      .onSnapshot(this.onMessageUpdate);
+    console.log('after unsubscribe-1', this.state.messages);
 
     this.authUnsubscribe = auth.onAuthStateChanged(
 
@@ -89,9 +98,11 @@ export default class Chat extends Component {
           messages: []
         });
 
+        console.log('before unsubscribe-2: ', this.state.messages);
         this.unsubscribe = this.referenceChatMessages
-          .orderBy('createdAt', 'desc')
+          // .orderBy('createdAt', 'desc')
           .onSnapshot(this.onMessageUpdate);
+        console.log('after unsubscribe-2', this.state.messages);
 
         this.referenceChatMessagesUser = db.collection('messages').where(
           'uid',
@@ -100,6 +111,7 @@ export default class Chat extends Component {
         );
       }
     );
+    console.log('after onAuthStateChanged()', this.state.messages);
 
     // Bring in the prop 'name'
     const name = this.props.route.params.name;
@@ -110,6 +122,22 @@ export default class Chat extends Component {
       title: name
     });
 
+    console.log('after title name: ', this.state.messages);
+
+    // console.log('messages2: ', this.state.messages);
+    // if (this.state.messages.length == 0) {
+    //   console.log('AAAAAA');
+    //   this.setState({
+    //     messages: [
+    //       {
+    //         _id: 1,
+    //         text: 'This is the beginning of the Chat',
+    //         createdAt: new Date(),
+    //         system: true
+    //       }
+    //     ]
+    //   });
+    // }
 
   }
 
