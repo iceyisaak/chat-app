@@ -30,15 +30,21 @@ export default class Chat extends Component {
 
         let data = doc.data();
 
+        // if (data.length === null) {
+        //   messages.push({
+        //     _id: 1,
+        //     text: 'This is the beginning of the Chat',
+        //     createdAt: new Date(),
+        //     system: true
+        //   });
+        // }
+
+
         messages.push({
           _id: data._id,
           createdAt: data.createdAt.toDate(),
           text: data.text,
-          user: {
-            _id: data.user._id,
-            name: data.user.name,
-            avatar: data.user.avatar
-          },
+          user: data.user,
           image: data.image || '',
           location: data.location || null
         });
@@ -46,6 +52,8 @@ export default class Chat extends Component {
       }
     );
 
+
+    console.log('data: ', data);
     this.setState({
       messages
     });
@@ -81,12 +89,25 @@ export default class Chat extends Component {
       }
     );
 
+    // Bring in the prop 'name'
+    const name = this.props.route.params.name;
+    // Bring props to setOptions
+    this.props.navigation.setOptions({
+
+      // set name as title
+      title: name
+    });
+
 
   }
 
-  // 
+  // When component is about to be removed from DOM
   componentWillUnmount() {
+
+    // Unsubscribe from Firebase
     this.unsubscribe();
+
+    // Unsubscribe Auth from Firebase
     this.authUnsubscribe();
   }
 
@@ -118,17 +139,9 @@ export default class Chat extends Component {
       }
     );
 
-    // Bring in the prop 'name'
-    const name = this.props.route.params.name;
-
-    // Bring props to setOptions
-    this.props.navigation.setOptions({
-
-      // set name as title
-      title: name
-    });
-
   };
+
+
 
   addMessage() {
     const message = this.state.messages[0];
@@ -179,7 +192,9 @@ export default class Chat extends Component {
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
-            _id: this.state.uid
+            _id: this.state.uid,
+            // name: this.name,
+            avatar: 'https://placeimg.com/140/140/any'
           }}
         />
 
