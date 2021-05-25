@@ -34,7 +34,11 @@ export default class Chat extends Component {
           _id: data._id,
           createdAt: data.createdAt.toDate(),
           text: data.text,
-          user: data.user,
+          user: {
+            _id: data.user._id,
+            name: data.user.name,
+            avatar: data.user.avatar
+          },
           image: data.image || '',
           location: data.location || null
         });
@@ -61,24 +65,8 @@ export default class Chat extends Component {
         }
 
         this.setState({
-          messages: [
-            {
-              _id: 1,
-              text: 'Hi Dev',
-              createdAt: new Date(),
-              user: {
-                _id: 2,
-                name: 'Sam Green',
-                avatar: 'https://placeimg.com/140/140/any'
-              }
-            },
-            {
-              _id: 2,
-              text: 'This is a system message',
-              createdAt: new Date(),
-              system: true
-            }
-          ]
+          uid: user.uid,
+          messages: []
         });
 
         this.unsubscribe = this.referenceChatMessages
@@ -138,6 +126,16 @@ export default class Chat extends Component {
 
   };
 
+  addMessage() {
+    const message = this.state.messages[0];
+    this.referenceChatMessages.add({
+      _id: message._id,
+      text: message.text,
+      createdAt: message.createdAt,
+      user: message.user
+    });
+  };
+
 
   // renderBubble takes in props
   renderBubble(props) {
@@ -177,7 +175,7 @@ export default class Chat extends Component {
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
-            _id: 1
+            _id: this.state.uid
           }}
         />
 
