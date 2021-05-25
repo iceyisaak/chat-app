@@ -111,7 +111,10 @@ export default class Chat extends Component {
           // follow by the messages
           messages
         )
-      })
+      }),
+      () => {
+        this.addMessage();
+      }
     );
 
     // Bring in the prop 'name'
