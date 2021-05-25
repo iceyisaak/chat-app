@@ -53,10 +53,22 @@ export default class Chat extends Component {
     );
 
 
-    console.log('data: ', data);
     this.setState({
       messages
     });
+    // console.log('messages: ', messages);
+    if (this.state.messages = []) {
+      this.setState({
+        messages: [
+          {
+            _id: 1,
+            text: 'This is the beginning of the Chat',
+            createdAt: new Date(),
+            system: true
+          }
+        ]
+      });
+    }
 
   };
 
@@ -142,7 +154,7 @@ export default class Chat extends Component {
   };
 
 
-
+  // Add Message
   addMessage() {
     const message = this.state.messages[0];
     this.referenceChatMessages.add({
