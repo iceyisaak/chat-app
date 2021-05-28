@@ -70,13 +70,6 @@ export default class Chat extends Component {
             isConnected: true
           });
 
-
-          // return (
-          //   < InputToolbar
-          //     {...pros}
-          //   />
-          // );
-
           // Otherwise
         } else {
           console.log('offline');
@@ -268,7 +261,8 @@ export default class Chat extends Component {
 
   renderInputToolbar(props) {
 
-    if (this.state.isConnected === true) {
+    if (this.state.isConnected == true) {
+
       return (
 
         <InputToolbar
@@ -277,6 +271,7 @@ export default class Chat extends Component {
 
       );
     }
+
   }
 
 
@@ -317,7 +312,7 @@ export default class Chat extends Component {
       >
         <GiftedChat
           renderBubble={this.renderBubble.bind(this)}
-          renderInputToolbar={this.renderInputToolbar}
+          renderInputToolbar={this.renderInputToolbar.bind(this)}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
