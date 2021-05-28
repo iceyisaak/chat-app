@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   LogBox
 } from 'react-native';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 
@@ -21,7 +21,8 @@ export default class Chat extends Component {
 
     this.state = {
       messages: [],
-      uid: ''
+      uid: '',
+      isConnected: false
     };
 
   }
@@ -56,6 +57,36 @@ export default class Chat extends Component {
   };
 
   componentDidMount() {
+
+    // Fetch Internet Connnection Info
+    NetInfo.fetch().then(
+      connection => {
+
+        // If Internet is connected
+        if (connection.isConnected) {
+          console.log('online');
+
+          this.setState({
+            isConnected: true
+          });
+
+
+          // return (
+          //   < InputToolbar
+          //     {...pros}
+          //   />
+          // );
+
+          // Otherwise
+        } else {
+          console.log('offline');
+          this.setState({
+            isConnected: false
+          });
+
+        }
+      }
+    );
 
     this.getMessages();
 
@@ -235,6 +266,20 @@ export default class Chat extends Component {
   };
 
 
+  renderInputToolbar(props) {
+
+    if (this.state.isConnected === true) {
+      return (
+
+        <InputToolbar
+          {...props}
+        />
+
+      );
+    }
+  }
+
+
 
 
   // renderBubble takes in props
@@ -272,6 +317,7 @@ export default class Chat extends Component {
       >
         <GiftedChat
           renderBubble={this.renderBubble.bind(this)}
+          renderInputToolbar={this.renderInputToolbar}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
