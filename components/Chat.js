@@ -8,6 +8,9 @@ import {
   LogBox
 } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetInfo from '@react-native-community/netinfo';
+
 
 
 
@@ -53,6 +56,8 @@ export default class Chat extends Component {
   };
 
   componentDidMount() {
+
+    this.getMessages();
 
     this.referenceChatMessages = db.collection('messages');
 
@@ -132,8 +137,36 @@ export default class Chat extends Component {
       }),
       () => {
         this.addMessage();
+        this.saveMessages();
       }
     );
+
+  };
+
+
+  // getMessages() from AsyncStorage
+  async getMessages() {
+    let messages = '';
+
+    // Try 
+    try {
+
+      // getting 'messages' item from AsyncStorage or []
+      messages = await AsyncStorage.getItem('messages') || [];
+
+      // setState
+      this.setState({
+
+        // Put in message in JSON format
+        messages: JSON.parse(messages)
+      });
+
+      // Catch any error
+    } catch (error) {
+
+      // Log error to console
+      console.log(error);
+    }
 
   };
 
@@ -141,6 +174,8 @@ export default class Chat extends Component {
   // Add Message
   addMessage() {
     const message = this.state.messages[0];
+
+    // Add message to Database
     this.referenceChatMessages.add({
       _id: message._id,
       text: message.text,
@@ -148,6 +183,58 @@ export default class Chat extends Component {
       user: message.user
     });
   };
+
+
+  // saveMessages() to AsyncStorage
+  async saveMessages() {
+
+    // Try
+    try {
+
+      // Wait for AsyncStorage to setItem
+      await AsyncStorage.setItem(
+
+        // Set in Message
+        'messages',
+
+        // Convert JSON messages to String format
+        JSON.stringify(this.state.messages)
+      );
+
+      // Catch error
+    } catch (error) {
+
+      // Log error to console
+      console.log(error);
+    }
+  }
+
+
+  // deleteMessages() from AsyncStorage
+  async deleteMessages() {
+
+    // Try
+    try {
+
+      // Wait for AsyncStorage to removeItem
+      await AsyncStorage.removeItem(
+        'messages'
+      );
+
+      // setState of messages to []
+      this.setState({
+        messages: []
+      });
+
+      // Catch Error
+    } catch (error) {
+
+      // Log error to console
+      console.log(error);
+    }
+  };
+
+
 
 
   // renderBubble takes in props
