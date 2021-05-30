@@ -113,7 +113,8 @@ export default class CustomActions extends Component {
 
           const imageUrl = await this.uploadImageFetch(result.uri);
           this.props.onSend({
-            image: imageUrl
+            image: imageUrl,
+            text: null
           });
 
         }
@@ -150,7 +151,8 @@ export default class CustomActions extends Component {
 
           const imageUrl = await this.uploadImageFetch(result.uri);
           this.props.onSend({
-            image: imageUrl
+            image: imageUrl,
+            text: null
           });
         }
       }

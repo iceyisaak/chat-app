@@ -44,7 +44,7 @@ export default class Chat extends Component {
         messages.push({
           _id: data._id,
           createdAt: data.createdAt.toDate(),
-          text: data.text,
+          text: data.text || null,
           user: data.user,
           image: data.image || null,
           location: data.location || null
@@ -208,7 +208,7 @@ export default class Chat extends Component {
     // Add message to Database
     this.referenceChatMessages.add({
       _id: message._id,
-      text: message.text,
+      text: message.text || null,
       createdAt: message.createdAt,
       user: message.user,
       image: message.image || null,
