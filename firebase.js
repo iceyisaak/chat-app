@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
-
+// Configuration for Firebase
 var firebaseConfig = {
   apiKey: "AIzaSyAqJpW4NzcX8z_trQBpuI6KLBNaG-HNfmg",
   authDomain: "chatapp-7e1d5.firebaseapp.com",
@@ -11,6 +11,7 @@ var firebaseConfig = {
   messagingSenderId: "218328176238",
   appId: "1:218328176238:web:4960ad1c7fb502ef61f87f"
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
