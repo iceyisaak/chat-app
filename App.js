@@ -8,29 +8,24 @@ import Chat from './components/Chat';
 
 const Stack = createStackNavigator();
 
+const App = () => {
 
-export default class App extends Component {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName='Start'
+      >
+        <Stack.Screen
+          name='Start'
+          component={Start}
+        />
+        <Stack.Screen
+          name='Chat'
+          component={Chat}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName='Start'
-        >
-          <Stack.Screen
-            name='Start'
-            component={Start}
-          />
-          <Stack.Screen
-            name='Chat'
-            component={Chat}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
-}
+export default App;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   ImageBackground,
@@ -11,180 +11,166 @@ import {
 
 const image = require('../assets/backgroundImage.png');
 
-export default class Start extends Component {
+const Start = () => {
 
-  constructor(props) {
-    super(props);
+  const [name, setName] = useState('');
+  const [color, setColor] = useState('#8A95A5');
+  const [selected, setSelected] = useState('swatch3');
 
-    this.state = {
-      name: '',
-      color: '#8A95A5',
-      selected: 'swatch3'
-    };
+  const props = [];
 
-  }
+  return (
 
-  render() {
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior='height'
+    >
 
-    return (
-
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior='height'
+      <ImageBackground
+        source={image}
+        style={styles.ImageBackground}
       >
 
-        <ImageBackground
-          source={image}
-          style={styles.ImageBackground}
-        >
 
+        <View style={styles.AppHeadingView}>
 
-          <View style={styles.AppHeadingView}>
-
-            <Text style={styles.AppName}>
-              Chat App
+          <Text style={styles.AppName}>
+            Chat App
             </Text>
 
-            <Text style={styles.AppSlogan}>
-              Bringing the World Closer
+          <Text style={styles.AppSlogan}>
+            Bringing the World Closer
             </Text>
 
-          </View>
+        </View>
 
-          <View style={styles.InputBackground}>
+        <View style={styles.InputBackground}>
 
-            <TextInput
-              style={styles.TextInput}
-              onChangeText={
-                (name) => this.setState({
-                  name
-                })
-              }
-              value={this.state.name}
-              placeholder='Your Name'
-            />
+          <TextInput
+            style={styles.TextInput}
+            onChangeText={
+              (name) => setName(name)
+            }
+            value={name}
+            placeholder='Your Name'
+          />
 
-            <View style={styles.colorSwatchSection}>
+          <View style={styles.colorSwatchSection}>
 
-              <Text style={styles.colorSwatchText}>
-                Choose Background Colour:
+            <Text style={styles.colorSwatchText}>
+              Choose Background Colour:
               </Text>
 
-              <View style={styles.colorSwatchContainer}>
+            <View style={styles.colorSwatchContainer}>
 
-                <TouchableOpacity
-                  style={
-                    this.state.selected === 'swatch1'
-                      ? styles.colorSwatch1__selected
-                      : styles.colorSwatch1
-                  }
-                  onPress={
-                    () => this.setState({
-                      color: '#090C08',
-                      selected: 'swatch1'
-                    })
+              <TouchableOpacity
+                style={
+                  selected === 'swatch1'
+                    ? styles.colorSwatch1__selected
+                    : styles.colorSwatch1
+                }
+                onPress={
+                  () => setColor('#090C08'),
+                  () => setSelected('swatch1')
+                }
 
-                  }
-                  accessible={true}
-                  accessibilityLabel='swatch1'
-                  accessbibilityHint='Black background'
-                  accessibilityRole='button'
-                ></TouchableOpacity>
+                accessible={true}
+                accessibilityLabel='swatch1'
+                accessbibilityHint='Black background'
+                accessibilityRole='button'
+              ></TouchableOpacity>
 
-                <TouchableOpacity
-                  style={
-                    this.state.selected === 'swatch2'
-                      ? styles.colorSwatch2__selected
-                      : styles.colorSwatch2
-                  }
-                  onPress={
-                    () => this.setState({
-                      color: '#474056',
-                      selected: 'swatch2'
-                    })
-                  }
-                  accessible={true}
-                  accessibilityLabel='swatch2'
-                  accessibilityHint='Dark Purple background'
-                  accessibilityRole='button'
-                ></TouchableOpacity>
+              <TouchableOpacity
+                style={
+                  selected === 'swatch2'
+                    ? styles.colorSwatch2__selected
+                    : styles.colorSwatch2
+                }
+                onPress={
+                  () => setColor('#474056'),
+                  () => setSelected('swatch2')
+                }
+                accessible={true}
+                accessibilityLabel='swatch2'
+                accessibilityHint='Dark Purple background'
+                accessibilityRole='button'
+              ></TouchableOpacity>
 
-                <TouchableOpacity
-                  style={
-                    this.state.selected === 'swatch3'
-                      ? styles.colorSwatch3__selected
-                      : styles.colorSwatch3
-                  }
-                  onPress={
-                    () => this.setState({
-                      color: '#8A95A5',
-                      selected: 'swatch3'
-                    })
-                  }
-                  accessible={true}
-                  accessibilityLabel='swatch3'
-                  accessibilityHint='Grey background'
-                  accessibilityRole='button'
-                >
-                </TouchableOpacity>
+              <TouchableOpacity
+                style={
+                  selected === 'swatch3'
+                    ? styles.colorSwatch3__selected
+                    : styles.colorSwatch3
+                }
+                onPress={
+                  () => setColor('#8A95A5'),
+                  () => setSelected('swatch3')
+                }
 
-                <TouchableOpacity
-                  style={
-                    this.state.selected === 'swatch4'
-                      ? styles.colorSwatch4__selected
-                      : styles.colorSwatch4
-                  }
-                  onPress={
-                    () => this.setState({
-                      color: '#B9C6AE',
-                      selected: 'swatch4'
-                    })
-                  }
-                  accessibility={true}
-                  accessibilityLabel='swatch4'
-                  accessibilityHint='Light Grey background'
-                  accessibilityRole='button'
-                ></TouchableOpacity>
+                accessible={true}
+                accessibilityLabel='swatch3'
+                accessibilityHint='Grey background'
+                accessibilityRole='button'
+              >
+              </TouchableOpacity>
 
-              </View>
+              <TouchableOpacity
+                style={
+                  selected === 'swatch4'
+                    ? styles.colorSwatch4__selected
+                    : styles.colorSwatch4
+                }
+                onPress={
+                  () => setColor('#B9C6AE'),
+                  () => setSelected('swatch4')
+                }
+
+                accessibility={true}
+                accessibilityLabel='swatch4'
+                accessibilityHint='Light Grey background'
+                accessibilityRole='button'
+              ></TouchableOpacity>
 
             </View>
 
-
-            <TouchableOpacity
-              style={styles.Button}
-              onPress={() => {
-                // console.log('StartJS', this.props);
-                this.props.navigation.navigate(
-                  'Chat',
-                  {
-                    name: this.state.name,
-                    color: this.state.color
-                  }
-                );
-              }}
-              accessibility={true}
-              accessibilityLabel='Chat Button'
-              accessibilityHint='Chat Now'
-              accessibilityRole='button'
-            >
-
-              <Text style={styles.ButtonText}>
-                Chat Now
-              </Text>
-
-            </TouchableOpacity>
-
-
           </View>
 
-        </ImageBackground>
 
-      </KeyboardAvoidingView >
-    );
+          <TouchableOpacity
+            style={styles.Button}
+            onPress={() => {
+              // console.log('StartJS', this.props);
+              props.navigation.navigate(
+                'Chat',
+                {
+                  name,
+                  color
+                }
+              );
+            }}
+            accessibility={true}
+            accessibilityLabel='Chat Button'
+            accessibilityHint='Chat Now'
+            accessibilityRole='button'
+          >
 
-  }
-}
+            <Text style={styles.ButtonText}>
+              Chat Now
+              </Text>
+
+          </TouchableOpacity>
+
+
+        </View>
+
+      </ImageBackground>
+
+    </KeyboardAvoidingView >
+  );
+
+};
+
+export default Start;
 
 const selectedStateColor = '#1D8E36';
 
