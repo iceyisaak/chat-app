@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   ImageBackground,
@@ -6,7 +6,8 @@ import {
   TextInput,
   StyleSheet,
   KeyboardAvoidingView,
-  TouchableOpacity
+  TouchableOpacity,
+  LogBox
 } from 'react-native';
 
 const image = require('../assets/backgroundImage.png');
@@ -18,6 +19,13 @@ const Start = () => {
   const [selected, setSelected] = useState('swatch3');
 
   const props = [];
+
+  useEffect(
+    () => {
+      LogBox.ignoreLogs(['Setting a timer']);
+    },
+    []
+  );
 
   return (
 
