@@ -28,7 +28,7 @@ export default class Chat extends Component {
       image: null,
       location: null
     };
-
+    console.log('Receiving Props: ', this.props);
   }
 
 

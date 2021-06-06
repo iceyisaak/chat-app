@@ -12,17 +12,21 @@ import {
 
 const image = require('../assets/backgroundImage.png');
 
-const Start = () => {
+const Start = ({
+  navigation
+}) => {
 
   const [name, setName] = useState('');
   const [color, setColor] = useState('#8A95A5');
   const [selected, setSelected] = useState('swatch3');
 
-  const props = [];
 
   useEffect(
     () => {
-      LogBox.ignoreLogs(['Setting a timer']);
+      LogBox.ignoreLogs([
+        'Setting a timer',
+        'Animated.event'
+      ]);
     },
     []
   );
@@ -78,8 +82,10 @@ const Start = () => {
                     : styles.colorSwatch1
                 }
                 onPress={
-                  () => setColor('#090C08'),
-                  () => setSelected('swatch1')
+                  () => {
+                    setColor('#090C08');
+                    setSelected('swatch1');
+                  }
                 }
 
                 accessible={true}
@@ -147,8 +153,7 @@ const Start = () => {
           <TouchableOpacity
             style={styles.Button}
             onPress={() => {
-              // console.log('StartJS', this.props);
-              props.navigation.navigate(
+              navigation.navigate(
                 'Chat',
                 {
                   name,
@@ -164,7 +169,7 @@ const Start = () => {
 
             <Text style={styles.ButtonText}>
               Chat Now
-              </Text>
+            </Text>
 
           </TouchableOpacity>
 
