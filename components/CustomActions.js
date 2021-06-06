@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
@@ -12,9 +12,9 @@ import * as ImagePicker from 'expo-image-picker';
 import firebase from 'firebase';
 
 
-const CustomActions = ({
-
-}) => {
+const CustomActions = (
+  props
+) => {
 
   onActionPress = () => {
 
