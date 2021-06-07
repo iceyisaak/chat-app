@@ -154,8 +154,8 @@ onSend(
       )
     }),
     () => {
-      this.addMessage();
-      this.saveMessages();
+      addMessage();
+      saveMessages();
     }
   );
 
@@ -173,30 +173,29 @@ async getMessages() {
     messages = await AsyncStorage.getItem('messages') || [];
 
     // setState
-    this.setState({
 
-      // Put in message in JSON format
-      messages: JSON.parse(messages)
-    });
+    // Put in message in JSON format
+    setMessages(JSON.parse(messages));
+  });
 
-    // Catch any error
-  } catch (error) {
+  // Catch any error
+} catch (error) {
 
-    // Log error to console
-    console.log(error);
-  }
+  // Log error to console
+  console.log(error);
+}
 
 };
 
 
 // Add Message
 addMessage() {
-  const message = this.state.messages[0];
+  const message = messages[0];
 
   console.log('addMessage(): ', message);
 
   // Add message to Database
-  this.referenceChatMessages.add({
+  referenceChatMessages.add({
     _id: message._id,
     text: message.text || null,
     createdAt: message.createdAt,
@@ -222,7 +221,7 @@ async saveMessages() {
       'messages',
 
       // Convert JSON messages to String format
-      JSON.stringify(this.state.messages)
+      JSON.stringify(messages)
     );
 
     // Catch error
@@ -246,9 +245,8 @@ async deleteMessages() {
     );
 
     // setState of messages to []
-    this.setState({
-      messages: []
-    });
+
+    setMessages([]);
 
     // Catch Error
   } catch (error) {
@@ -261,7 +259,7 @@ async deleteMessages() {
 
 renderInputToolbar(props) {
 
-  if (this.state.isConnected == true) {
+  if (isConnected == true) {
 
     return (
 
@@ -324,7 +322,7 @@ renderBubble(props) {
 // Bring in the color
 const {
   color
-} = this.props.route.params;
+} = route.params;
 
 return (
 
@@ -337,14 +335,14 @@ return (
     ]}
   >
     <GiftedChat
-      renderBubble={this.renderBubble.bind(this)}
-      renderInputToolbar={this.renderInputToolbar.bind(this)}
-      renderActions={this.renderCustomActions}
-      renderCustomView={this.renderCustomView}
-      messages={this.state.messages}
-      onSend={(messages) => this.onSend(messages)}
+      renderBubble={renderBubble.bind(this)}
+      renderInputToolbar={renderInputToolbar.bind(this)}
+      renderActions={renderCustomActions}
+      renderCustomView={renderCustomView}
+      messages={messages}
+      onSend={(messages) => onSend(messages)}
       user={{
-        _id: this.state.uid,
+        _id: uid,
         // name: this.name,
         avatar: 'https://placeimg.com/140/140/any'
       }}
